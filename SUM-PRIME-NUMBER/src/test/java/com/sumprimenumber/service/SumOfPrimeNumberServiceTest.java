@@ -1,43 +1,42 @@
 package com.sumprimenumber.service;
 
+import com.sumprimenumber.Exception.InvalidInputException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Component;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Component
+
 public class SumOfPrimeNumberServiceTest {
 
     @Test
-    public void test(){
+    @DisplayName("Testing for valid cases")
+    public void testValid(){
 
         SumOfPrimeNumberService sumOfPrimeNumberService=new SumOfPrimeNumberService();
 
-        long expected=0L;
-        long actual=sumOfPrimeNumberService.calculateSumOfPrimeNumbers(-100);
-        assertEquals(expected, actual);
+        assertAll(
+                ()->assertEquals(2L, sumOfPrimeNumberService.calculateSumOfPrimeNumbers(2)),
+                ()->assertEquals(17L, sumOfPrimeNumberService.calculateSumOfPrimeNumbers(10)),
+                ()->assertEquals(12272577818052L, sumOfPrimeNumberService.calculateSumOfPrimeNumbers(20_000_000)),
+                ()->assertEquals(279209790387276L, sumOfPrimeNumberService.calculateSumOfPrimeNumbers(100_000_000))
+        );
 
-        expected=0L;
-        actual=sumOfPrimeNumberService.calculateSumOfPrimeNumbers(1);
-        assertEquals(expected, actual);
+    }
 
-        expected=2L;
-        actual=sumOfPrimeNumberService.calculateSumOfPrimeNumbers(2);
-        assertEquals(expected, actual);
+    @Test
+    @DisplayName("Testing for Invalid cases")
+    public void testInValid(){
 
-        expected=17L;
-        actual=sumOfPrimeNumberService.calculateSumOfPrimeNumbers(10);
-        assertEquals(expected, actual);
+        SumOfPrimeNumberService sumOfPrimeNumberService=new SumOfPrimeNumberService();
 
-
-        expected=12272577818052L;
-        actual=sumOfPrimeNumberService.calculateSumOfPrimeNumbers(20_000_000);
-        assertEquals(expected, actual);
-
-        expected=279209790387276L;
-        actual=sumOfPrimeNumberService.calculateSumOfPrimeNumbers(100_000_000);
-        assertEquals(expected, actual);
-
+        assertAll(
+                ()->assertThrows(InvalidInputException.class, () -> sumOfPrimeNumberService.calculateSumOfPrimeNumbers(-100)),
+                ()->assertThrows(InvalidInputException.class, () -> sumOfPrimeNumberService.calculateSumOfPrimeNumbers(0)),
+                ()->assertThrows(InvalidInputException.class, () -> sumOfPrimeNumberService.calculateSumOfPrimeNumbers(1)),
+                ()->assertThrows(InvalidInputException.class, () -> sumOfPrimeNumberService.calculateSumOfPrimeNumbers(100_000_001)),
+                ()->assertThrows(InvalidInputException.class, () -> sumOfPrimeNumberService.calculateSumOfPrimeNumbers(200_000_000))
+        );
     }
 
 }
