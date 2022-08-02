@@ -13,7 +13,7 @@ import java.util.Date;
 public class CustomizedResponseEntityExceptionHandler extends  ResponseEntityExceptionHandler{
 
     @ExceptionHandler(InvalidInputException.class)
-    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) throws Exception {
+    public final ResponseEntity<Object> handleMethodArgumentNotValid(Exception ex, WebRequest request) throws Exception {
 
         ExceptionResponse exceptionResponse=
                 new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));

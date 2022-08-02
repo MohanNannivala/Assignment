@@ -16,7 +16,7 @@ public class SumOfPrimeNumberController {
     SumOfPrimeNumberService sumOfPrimeNumberService;
 
     @GetMapping("/{number}")
-    public long calculateSumOfPrimeNumbers(@PathVariable long number) {
+    public Long calculateSumOfPrimeNumbers(@PathVariable long number) {
 
         if (number < Range.LOW_LIMIT || number > Range.HIGH_LIMIT) {
             throw new InvalidInputException("Input number is invalid, please provide input between " + Range.LOW_LIMIT + " " + Range.HIGH_LIMIT);

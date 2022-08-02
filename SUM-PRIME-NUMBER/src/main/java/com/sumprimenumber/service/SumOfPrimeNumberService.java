@@ -1,34 +1,40 @@
 package com.sumprimenumber.service;
 
+import com.sumprimenumber.util.Range;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.floor;
+import static java.lang.Math.sqrt;
+
 @Component
-public class SumOfPrimeNumberService {
+public class SumOfPrimeNumberService{
 
     public long calculateSumOfPrimeNumbers(long number){
 
-        long result=0;
+        long result = 0L;
+        int limit = (int)Math.min(number, (Range.SEGMENT_LENGTH-1));
+        ArrayList<Integer> primeNumbers=new ArrayList<>();
 
-        ArrayList<Boolean> isPrime=new ArrayList<>();
+        SieveAlgorithm sieveAlgorithm=new SieveAlgorithm();
+        sieveAlgorithm.createSieveArray(limit, primeNumbers);
 
-        for(int i=0; i<=number; i++){
-            isPrime.add(true);
+        for(int i : primeNumbers){
+            result+=i;
         }
 
-        for(int i=2; i<=Math.sqrt(number); i++){
-            if(isPrime.get(i)){
-                for(int j=i*i; j<=number; j+=i){
-                    isPrime.set(j, false);
-                }
-            }
-        }
+        int low  = limit;
+        int high = 2*limit;
 
-        for(int i=2; i<=number; i++){
-            if(isPrime.get(i)){
-                result+=i;
-            }
+        SegmentedSieveAlgorithm segmentedSieveAlgorithm=new SegmentedSieveAlgorithm();
+
+        while(low<number){
+
+            result += segmentedSieveAlgorithm.createSieveArray((int)low, (int)Math.min(number, high), primeNumbers);
+            low  = low + limit;
+
+            high = high + limit;
         }
 
         return result;
