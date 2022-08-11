@@ -4,5 +4,4 @@
 3. Open IDE and import the project.
 4. Choose the Spring Boot Application file (search for @SpringBootApplication)
 5. Right-Click on the file and Run as Java Application
-5. Right Click on the file and Run as Java Application
 6. You are all Set
