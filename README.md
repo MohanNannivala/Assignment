@@ -1,4 +1,4 @@
-# Westpac_Assignment
+# Assignment
 1. Download the zip or clone the Git repository.
 2. Unzip the zip file (if you downloaded one)
 3. Open IDE and import the project.
